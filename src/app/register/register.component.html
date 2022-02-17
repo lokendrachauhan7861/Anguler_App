@@ -1,0 +1,29 @@
+<form (ngSubmit)="f.form.valid && createuser()" #f="ngForm">
+<div class="row" >
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="form-group">
+ 	<label>Name:</label>
+ 	<input type="text" name="name" [(ngModel)]="register.name" class="form-control" placeholder="Name">
+ </div>
+ <div class="form-group">
+ 	<label>Email:</label>
+ 	<input type="email" name="email" [(ngModel)]="register.email" class="form-control" placeholder="Email">
+ </div>
+ <div class="form-group">
+ 	<label>Password:</label>
+ 	<input type="text" id="passwword" name="password" [(ngModel)]="register.password" class="form-control" placeholder="Password">
+ </div>
+  <div class="form-group">
+    <label>Confirm Password:</label>
+    <input type="text" id="passwword" pattern="{{register.password}}" #cpass="ngModel" name="confirmpassword"  [(ngModel)]="confirmpassword" class="form-control" placeholder="Confirm Password">
+    <span class="text-danger" *ngIf="f.submitted && cpass.errors">Password and ConfirmPassword does not Match</span>
+ </div>
+ <div class="form-group">
+ 	<input type="submit" name="Register" value="register" class="btn btn-primary">
+ </div>
+ <span [ngClass]="(status == 0) ? 'text-success' : 'text-danger'">{{ message }}</span>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+</form>

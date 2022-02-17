@@ -1,0 +1,91 @@
+
+<div class="container">
+  <div>
+  <app-header></app-header>
+</div>
+<div style="margin-top:60px;">
+<form (ngSubmit)="insertData()"> 
+ <div class="form-group">
+ 	<label>Name:</label>
+ 	<input type="text" name="name" [(ngModel)]="employee.name" class="form-control">
+ </div>
+ <div class="form-group">
+ 	<label>Email:</label>
+ 	<input type="email" name="email" [(ngModel)]="employee.email" class="form-control">
+ </div>
+ <div class="form-group">
+ 	<label>Salery:</label>
+ 	<input type="text" name="salery" [(ngModel)]="employee.salery" class="form-control">
+ </div>
+   <div class="form-group">
+  <label>Hobby:</label>
+
+  <div *ngFor="let obj of hobbyArr"> 
+  <input type="checkbox" name="hobby" value="{{obj.value}}" (change)="selecthobby($event)">{{obj.key}}
+ </div>
+
+ </div>
+
+ <div class="form-group">
+  <label>Country:</label>
+  <select  name="country" [(ngModel)]="employee.country" class="form-control" (change)="getState($event)">
+    <option value="">Select Country</option>
+    <option *ngFor="let obj of countryArr" value="{{obj.id}}">{{ obj.name }}</option>
+  </select>
+ </div>
+
+  <div class="form-group">
+  <label>State:</label>
+  <select  name="state" [(ngModel)]="employee.state" class="form-control" (change)="getCity($event)">
+    <option value="">Select State</option>
+    <option *ngFor="let obj of stateArr" value="{{obj.id}}" >{{obj.name}}</option>
+  </select>
+ </div>
+
+
+  <div class="form-group">
+  <label>City:</label>
+  <select  name="city" [(ngModel)]="employee.city" class="form-control">
+    <option value="">Select City</option>
+    <option *ngFor="let obj of cityArr" value="{{obj.id}}">{{obj.name}}</option>
+  </select>
+ </div>
+
+ <div class="form-group">
+  <label>Pic:</label>
+  <input type="file" name="pic" class="form-control" (change)="uploadFile($event)">
+ </div>
+
+ <div class="form-group">
+ 	<input type="submit" name="Insert" value="Insert" class="btn btn-primary">
+ </div>
+
+</form>
+</div>
+
+<div class="container">
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Image</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let obj of dataArr">
+    
+      <td>{{obj.name}}</td>
+      <td>{{obj.email}}</td>
+      <td><img [src]="obj.image ? directoryPath+obj.image : 'assets/image/default.png'" width="100px" height="100px"></td>
+      <td class="btn btn-danger" (click)="deleteData(obj.id)">Delete</td>
+      <td class="btn btn-primary mx-2" routerLink="edit/{{obj.id}}">Edit</td>
+    </tr>
+    
+  </tbody>
+<ngb-pagination [collectionSize]="totalCount" [(page)]="page" [pageSize]="limit" aria-label="Default pagination" (pageChange)="getEmployeeData()"></ngb-pagination>
+
+</table>
+</div>
